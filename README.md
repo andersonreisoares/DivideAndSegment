@@ -30,6 +30,6 @@ The current version do not handle geographic information. This function will soo
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Related papers
-Divide And Segment - An Alternative For Parallel Segmentation. TS Korting, EF Castejon, LMG Fonseca - GeoInfo, 97-104 [PDF](http://www.geoinfo.info/proceedings_geoinfo2011.split/proceedings_geoinfo2011.104-111.pdf)
+Divide And Segment - An Alternative For Parallel Segmentation. TS Korting, EF Castejon, LMG Fonseca - Lecture Notes in Computer Science 8192:504-515 · May 2013 [PDF](https://www.researchgate.net/publication/265794792_The_Divide_and_Segment_Method_for_Parallel_Image_Segmentation)
 
 Improvements of the divide and segment method for parallel image segmentation. AR Soares, TS Körting, LMG Fonseca - Revista Brasileira de Cartografia 68 (6) [PDF](http://www.lsie.unb.br/rbc/index.php/rbc/article/viewFile/1602/996)
