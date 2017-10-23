@@ -4,7 +4,9 @@ This code tackle the problem of creating tiles for parallel segmentation. After 
 implementation is based on multiprogrammed techniques. The code define noncrisp borders between tiles, so it's not necessary a postprocessing of neighboring regions.
 
 ## Authors
-Anderson Soares, Thales Körting and Emiliano Castejon 
+Anderson Soares, Thales Körting, Emiliano Castejon and Leila Fonseca
+
+[http://www.dpi.inpe.br/](http://www.dpi.inpe.br/)
 
 ## Example
 
