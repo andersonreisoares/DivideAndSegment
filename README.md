@@ -5,8 +5,7 @@ implementation is based on multiprogrammed techniques. The code define noncrisp 
 
 ## Authors
 Anderson Soares, Thales Körting, Emiliano Castejon and Leila Fonseca
-
-[http://www.dpi.inpe.br/](http://www.dpi.inpe.br/)
+Image Processing Division, National Institute of Space Research, INPE, São José dos Campos, Brazil
 
 ## Example
 
