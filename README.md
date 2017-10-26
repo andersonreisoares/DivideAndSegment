@@ -19,11 +19,11 @@ line_number      - Nummber of lines to split the image (4 - divide in 16 tiles)
 vchunk           - Vertical chunk size
 hchunk           - horizontal chuck size
 max_displacement - maximum displacement to the crop line
-
+epsg             - EPSG of image
 
 ## Warning
 
-The tiles created by the algorithm, are generated with the same size of input, this issue will be handle soon.
+Is necessary to inform the EPSG of image.
 
 
 ## License
