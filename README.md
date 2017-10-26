@@ -3,6 +3,8 @@
 This code tackle the problem of creating tiles for parallel segmentation. After defining tiles, any algorithm can run on them in an independent way, since the
 implementation is based on multiprogrammed techniques. The code define noncrisp borders between tiles, so it's not necessary a postprocessing of neighboring regions.
 
+![Result](https://user-images.githubusercontent.com/9437194/32062553-923b2e12-ba53-11e7-917b-af7c049b8813.jpg)
+
 ## Authors
 Anderson Soares, Thales Körting, Emiliano Castejon and Leila Fonseca
 Image Processing Division, National Institute of Space Research, INPE, São José dos Campos, Brazil
@@ -20,6 +22,9 @@ vchunk           - Vertical chunk size
 hchunk           - horizontal chuck size
 max_displacement - maximum displacement to the crop line
 epsg             - EPSG of image
+
+![Result2](https://user-images.githubusercontent.com/9437194/32062558-949526d6-ba53-11e7-9ca1-f5fed93941e6.jpg)
+
 
 ## Warning
 
