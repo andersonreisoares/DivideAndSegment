@@ -8,7 +8,8 @@ function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement)
 % vchunk           - Vertical chunk size
 % hchunk           - horizontal chuck size
 % max_displacement - maximum displacement to the crop line
-% 
+% epsg             - EPSG of image
+
 % Anderson Soares, Thales Körting and Emiliano Castejon - 23/10/17
 % 
 % The divide and segment method appears in
@@ -20,10 +21,25 @@ function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement)
 % load and crop image
 tic
 disp('Loading input image');
+ file = 'rapid.tif';
+% filterOption =2
+% vchunk = 20
+% hchunk = 20
+% max_displacement = 50
 name = strsplit(img,'.');
-name{1};
-img = imread(img);
 
+
+%Check if is a valid geotiff
+info = imfinfo(img);
+tag = isfield(info,'GeoKeyDirectoryTag');
+geoinfo = info.GeoKeyDirectoryTag;
+
+if tag == 1
+    [img, R] = geotiffread(img);
+    depth = info.BitsPerSample(1);
+else
+    [img,~] = imread(img);
+end
 
 [image_h, image_v] = filter_op(img, filterOption);
 chunk_H_size = vchunk;
@@ -173,7 +189,7 @@ end
 %Show results
 figure(2);
 clf;
-imshow(img);
+imshow(imadjust(img(:,:,1:3)));
 hold on;
 for i=1:line_number
   plot(line_cut_xcolumns_h{i}, line_cut_yrows_h{i},'linewidth', 2, 'Color', 'y');
@@ -182,29 +198,35 @@ end
 
 %Cropping
 i = 1;
+
 for h=1:line_number
     linha_hx = cell2mat(line_cut_xcolumns_h(h+1));
     linha_hy = cell2mat(line_cut_yrows_h(h+1));
-    
+
     if h==1
         [temp, temp2] = divide(img, linha_hy, linha_hx);
     else
         [temp, temp2] = divide(temph, linha_hy, linha_hx);
     end
     for v=1:line_number
-    
+
         linha_vx = cell2mat(line_cut_xcolumns_v(v+1));
         linha_vy = cell2mat(line_cut_yrows_v(v+1));
-    
+
         temp  = permute(temp, [2 1 3]);
         [cut1, temp3] = divide(temp, linha_vy, linha_vx);                    
         cut1 = permute(cut1,[2 1 3]);
         temp3 = permute(temp3,[2 1 3]);
-        imwrite(cut1, [name{1}, '_cut',int2str(i),'.tif']); i=i+1;
+        if tag==1
+            geotiffwrite([name{1}, '_cut',int2str(i),'.tif'],cut1,R,'CoordRefSysCode',geoinfo(20)); i=i+1;
+        else
+            imwrite(cut1, [name{1}, '_cut',int2str(i),'.tif'],'WriteMode', 'append'); i=i+1;
+        end
         temp = temp3;
     end
     temph=temp2;
-    
+
 end
+
 toc
  
