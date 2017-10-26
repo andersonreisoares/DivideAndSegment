@@ -23,7 +23,7 @@ epsg             - EPSG of image
 
 ## Warning
 
-Is necessary to inform the EPSG of image.
+Is necessary to provide the EPSG of image.
 
 
 ## License
