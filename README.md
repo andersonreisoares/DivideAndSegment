@@ -9,7 +9,7 @@ implementation is based on multiprogrammed techniques. The code define noncrisp 
 Anderson Soares, Thales Körting, Emiliano Castejon and Leila Fonseca
 Image Processing Division, National Institute of Space Research, INPE, São José dos Campos, Brazil
 
-## Paramters
+## Parameters
 
 ```
 divSeg(img,filterOption,line_number,vchunk,hchunk,max_displacement,epsg)
