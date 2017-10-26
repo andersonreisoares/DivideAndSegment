@@ -9,19 +9,31 @@ implementation is based on multiprogrammed techniques. The code define noncrisp 
 Anderson Soares, Thales Körting, Emiliano Castejon and Leila Fonseca
 Image Processing Division, National Institute of Space Research, INPE, São José dos Campos, Brazil
 
-## Example
+## Paramters
 
+```
+divSeg(img,filterOption,line_number,vchunk,hchunk,max_displacement,epsg)
+```
+
+img              - input image 
+
+filterOption     - 1 for standard magnitude approach, 2 for directional approach (recommended)
+
+line_number      - Nummber of lines to split the image (4 - divide in 16 tiles)
+
+vchunk           - Vertical chunk size
+
+hchunk           - horizontal chuck size
+
+max_displacement - maximum displacement to the crop line
+
+epsg             - EPSG of image
+
+## Example
 ```
 divSeg('input.tif',8,2,20,10,100,32723)
 ```
 
-img              - input image
-filterOption     - 1 for standard magnitude approach, 2 for directional approach (recommended)
-line_number      - Nummber of lines to split the image (4 - divide in 16 tiles)
-vchunk           - Vertical chunk size
-hchunk           - horizontal chuck size
-max_displacement - maximum displacement to the crop line
-epsg             - EPSG of image
 
 ![Result2](https://user-images.githubusercontent.com/9437194/32062558-949526d6-ba53-11e7-9ca1-f5fed93941e6.jpg)
 
