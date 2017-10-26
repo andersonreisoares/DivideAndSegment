@@ -1,4 +1,4 @@
-function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement)
+function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement,epsg)
 
 % ---INPUT---
 % img              - input image
@@ -21,13 +21,25 @@ function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement)
 % load and crop image
 tic
 disp('Loading input image');
- file = 'rapid.tif';
+% Test
+% file = 'rapid.tif';
 % filterOption =2
 % vchunk = 20
 % hchunk = 20
 % max_displacement = 50
-name = strsplit(img,'.');
+% line_number = 3
+% info = imfinfo(file);
+% tag = isfield(info,'GeoKeyDirectoryTag');
+% geoinfo = info.GeoKeyDirectoryTag;
+% 
+% if tag == 1
+%     [img, R] = geotiffread(file);
+%     depth = info.BitsPerSample(1);
+% else
+%     [img,~] = imread(img);
+% end
 
+name = strsplit(img,'.');
 
 %Check if is a valid geotiff
 info = imfinfo(img);
@@ -189,7 +201,7 @@ end
 %Show results
 figure(2);
 clf;
-imshow(imadjust(img(:,:,1:3)));
+imshow(img(:,:,1:3));
 hold on;
 for i=1:line_number
   plot(line_cut_xcolumns_h{i}, line_cut_yrows_h{i},'linewidth', 2, 'Color', 'y');
@@ -198,27 +210,47 @@ end
 
 %Cropping
 i = 1;
-
 for h=1:line_number
+    
     linha_hx = cell2mat(line_cut_xcolumns_h(h+1));
     linha_hy = cell2mat(line_cut_yrows_h(h+1));
-
+    
+    lim_hy = cell2mat(line_cut_yrows_h(h));
     if h==1
         [temp, temp2] = divide(img, linha_hy, linha_hx);
     else
         [temp, temp2] = divide(temph, linha_hy, linha_hx);
     end
     for v=1:line_number
-
+        disp(['Creating tile: ',int2str(i)]);
+        %Get line cut
         linha_vx = cell2mat(line_cut_xcolumns_v(v+1));
         linha_vy = cell2mat(line_cut_yrows_v(v+1));
-
+        lim_vy = cell2mat(line_cut_yrows_v(v));
+        
+        
         temp  = permute(temp, [2 1 3]);
         [cut1, temp3] = divide(temp, linha_vy, linha_vx);                    
         cut1 = permute(cut1,[2 1 3]);
         temp3 = permute(temp3,[2 1 3]);
+        
+        %Subset image
+        firstrow = min(lim_hy);
+        lastrow = max(linha_hy);
+        firstcol = min(lim_vy);
+        lastcol = max(linha_vy);
+        subImage = cut1(firstrow:lastrow, firstcol:lastcol, :);
+        xi = [firstcol - .5, lastcol + .5];
+        yi = [firstrow - .5, lastrow + .5];
+        [xlimits, ylimits] = intrinsicToWorld(R, xi, yi);
+        subR = R;
+        subR.RasterSize = size(subImage);
+        subR.XLimWorld = sort(xlimits);
+        subR.YLimWorld = sort(ylimits);      
+
+        %Write image
         if tag==1
-            geotiffwrite([name{1}, '_cut',int2str(i),'.tif'],cut1,R,'CoordRefSysCode',geoinfo(20)); i=i+1;
+            geotiffwrite([name{1}, '_cut',int2str(i),'.tif'],subImage,subR,'CoordRefSysCode',epsg); i=i+1;
         else
             imwrite(cut1, [name{1}, '_cut',int2str(i),'.tif'],'WriteMode', 'append'); i=i+1;
         end
