@@ -10,7 +10,7 @@ Image Processing Division, National Institute of Space Research, INPE, S√£o Jos√
 ## Example
 
 ```
-divSeg('input.tif',8,2,20,10,100)
+divSeg('input.tif',8,2,20,10,100,32723)
 ```
 
 img              - input image
