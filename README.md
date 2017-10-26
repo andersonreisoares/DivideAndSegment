@@ -20,9 +20,10 @@ vchunk           - Vertical chunk size
 hchunk           - horizontal chuck size
 max_displacement - maximum displacement to the crop line
 
+
 ## Warning
 
-The current version do not handle geographic information. This function will soon be implemented.
+The tiles created by the algorithm, are generated with the same size of input, this issue will be handle soon.
 
 
 ## License
