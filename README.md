@@ -40,7 +40,7 @@ divSeg('input.tif',8,2,20,10,100,32723)
 
 ## Warning
 
-Is necessary to provide the EPSG of image.
+For geotiff files, it is necessary to provide the EPSG of image.
 
 
 ## License
