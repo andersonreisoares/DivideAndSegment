@@ -1,4 +1,4 @@
-# The divide and segment method
+# Divide and segment
 
 This code tackle the problem of creating tiles for parallel segmentation. After defining tiles, any algorithm can run on them in an independent way, since the
 implementation is based on multiprogrammed techniques. The code define noncrisp borders between tiles, so it's not necessary a postprocessing of neighboring regions.
