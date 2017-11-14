@@ -30,7 +30,7 @@ for p=1:2
     line_cut_yrows_v{1} = (1) * ones(1,full_H);
     
     line_cut_xcolumns_h{line_number+1} = (full_W) * ones(1,full_W);
-    line_cut_yrows_h{line_number+1} = (full_H) * ones(1,full_W);
+    line_cut_yrows_h{line_number+1} = (full_W) * ones(1,full_W);
     line_cut_xcolumns_v{line_number+1} = (full_W) * ones(1,full_H);
     line_cut_yrows_v{line_number+1} = (full_H) * ones(1,full_H);
     

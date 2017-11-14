@@ -1,24 +1,24 @@
 function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement,epsg)
 
-% ---INPUT---
-% img              - input image
-% filterOption     - 1 for standard magnitude approach, 2 for directional
-% approach (recommended)
-% line_number      - Nummber of lines to split the image (4 - divide in 16 tiles)
-% vchunk           - Vertical chunk size
-% hchunk           - horizontal chuck size
-% max_displacement - maximum displacement to the crop line
-% epsg             - EPSG of image
-
-% Anderson Soares, Thales Körting and Emiliano Castejon - 23/10/17
+% % ---INPUT---
+% % img              - input image
+% % filterOption     - 1 for standard magnitude approach, 2 for directional
+% % approach (recommended)
+% % line_number      - Nummber of lines to split the image (4 - divide in 16 tiles)
+% % vchunk           - Vertical chunk size
+% % hchunk           - horizontal chuck size
+% % max_displacement - maximum displacement to the crop line
+% % epsg             - EPSG of image
 % 
-% The divide and segment method appears in
-% Divide And Segment - An Alternative For Parallel Segmentation. TS Korting,
-% EF Castejon, LMG Fonseca - GeoInfo, 97-104
-% Improvements of the divide and segment method for parallel image segmentation
-% AR Soares, TS Körting, LMG Fonseca - Revista Brasileira de Cartografia 68 (6)
+% % Anderson Soares, Thales Körting and Emiliano Castejon - 23/10/17
+% % 
+% % The divide and segment method appears in
+% % Divide And Segment - An Alternative For Parallel Segmentation. TS Korting,
+% % EF Castejon, LMG Fonseca - GeoInfo, 97-104
+% % Improvements of the divide and segment method for parallel image segmentation
+% % AR Soares, TS Körting, LMG Fonseca - Revista Brasileira de Cartografia 68 (6)
 
-% load and crop image
+
 tic
 disp('Loading input image');
 
@@ -29,35 +29,51 @@ end
 if nargin == 6
   epsg = 32723;
   disp('warning: epsg defined as 32723')
-end
-
+% end
 name = strsplit(img,'.');
 
 %Check if is a valid geotiff
 info = imfinfo(img);
 tag = isfield(info,'GeoKeyDirectoryTag');
-geoinfo = info.GeoKeyDirectoryTag;
 
 if tag == 1
+    geoinfo = info.GeoKeyDirectoryTag;
     [img, R] = geotiffread(img);
     depth = info.BitsPerSample(1);
 else
     [img,~] = imread(img);
 end
-
+img = imadjust(img);
 [image_h, image_v] = filter_op(img, filterOption);
 
 [line_cut_xcolumns_h, line_cut_yrows_h,line_cut_xcolumns_v,line_cut_yrows_v] = line_cut(image_h, image_v,line_number,vchunk,hchunk,max_displacement);
 
 %Show results
-figure(2);
+figure(1);
 clf;
-imshow(img(:,:,1:3));
+if d>3
+    imshow(img(:,:,1:3));
+else
+    imshow(img(:,:,1));
+end
+
 hold on;
 for i=1:line_number
   plot(line_cut_xcolumns_h{i}, line_cut_yrows_h{i},'linewidth', 2, 'Color', 'y');
   plot(line_cut_yrows_v{i+1}, line_cut_xcolumns_v{i+1},'linewidth', 2, 'Color', 'y');
 end
+hold off;
+
+figure(2)
+imshow(image_h)
+hold on;
+for i=1:line_number
+  plot(line_cut_xcolumns_h{i}, line_cut_yrows_h{i},'linewidth', 2, 'Color', 'y');
+  plot(line_cut_yrows_v{i+1}, line_cut_xcolumns_v{i+1},'linewidth', 2, 'Color', 'y');
+end
+hold off;
+
+t1=toc;
 
 %Cropping
 i = 1;
@@ -78,8 +94,7 @@ for h=1:line_number
         linha_vx = cell2mat(line_cut_xcolumns_v(v+1));
         linha_vy = cell2mat(line_cut_yrows_v(v+1));
         lim_vy = cell2mat(line_cut_yrows_v(v));
-        
-        
+             
         temp  = permute(temp, [2 1 3]);
         [cut1, temp3] = divide(temp, linha_vy, linha_vx);                    
         cut1 = permute(cut1,[2 1 3]);
@@ -106,10 +121,10 @@ for h=1:line_number
             imwrite(cut1, [name{1}, '_cut',int2str(i),'.tif'],'WriteMode', 'append'); i=i+1;
         end
         temp = temp3;
+        clear cut1;
     end
     temph=temp2;
 
-end
+end 
 
-toc
- 
+fprintf('Algorithm find the line cut after %.2f s \n',t1);
