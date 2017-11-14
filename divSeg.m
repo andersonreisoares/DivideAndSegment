@@ -10,13 +10,13 @@ function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement,epsg
 % % max_displacement - maximum displacement to the crop line
 % % epsg             - EPSG of image
 % 
-% % Anderson Soares, Thales Körting and Emiliano Castejon - 23/10/17
+% % Anderson Soares, Thales KÃ¶rting and Emiliano Castejon - 23/10/17
 % % 
 % % The divide and segment method appears in
 % % Divide And Segment - An Alternative For Parallel Segmentation. TS Korting,
 % % EF Castejon, LMG Fonseca - GeoInfo, 97-104
 % % Improvements of the divide and segment method for parallel image segmentation
-% % AR Soares, TS Körting, LMG Fonseca - Revista Brasileira de Cartografia 68 (6)
+% % AR Soares, TS KÃ¶rting, LMG Fonseca - Revista Brasileira de Cartografia 68 (6)
 
 
 tic
@@ -29,7 +29,7 @@ end
 if nargin == 6
   epsg = 32723;
   disp('warning: epsg defined as 32723')
-% end
+end
 name = strsplit(img,'.');
 
 %Check if is a valid geotiff
