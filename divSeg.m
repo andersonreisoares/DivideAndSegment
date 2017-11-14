@@ -10,13 +10,21 @@ function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement,epsg
 % % max_displacement - maximum displacement to the crop line
 % % epsg             - EPSG of image
 % 
-% % Anderson Soares, Thales KÃ¶rting and Emiliano Castejon - 23/10/17
+% % Anderson Soares, Thales Körting and Emiliano Castejon - 23/10/17
 % % 
 % % The divide and segment method appears in
 % % Divide And Segment - An Alternative For Parallel Segmentation. TS Korting,
 % % EF Castejon, LMG Fonseca - GeoInfo, 97-104
 % % Improvements of the divide and segment method for parallel image segmentation
-% % AR Soares, TS KÃ¶rting, LMG Fonseca - Revista Brasileira de Cartografia 68 (6)
+% % AR Soares, TS Körting, LMG Fonseca - Revista Brasileira de Cartografia 68 (6)
+
+% to test
+% img = imread('input.tif');
+% filterOption=2
+% line_number = 3
+% vchunk=20
+% hchunk = 20
+% max_displacement = 100
 
 
 tic
@@ -30,15 +38,17 @@ if nargin == 6
   epsg = 32723;
   disp('warning: epsg defined as 32723')
 end
+
 name = strsplit(img,'.');
 
 %Check if is a valid geotiff
-info = imfinfo(img);
+info = imfinfo('input.tif');
 tag = isfield(info,'GeoKeyDirectoryTag');
+epsg = 32723;
 
 if tag == 1
     geoinfo = info.GeoKeyDirectoryTag;
-    [img, R] = geotiffread(img);
+    [img, R] = geotiffread('input.tif');
     depth = info.BitsPerSample(1);
 else
     [img,~] = imread(img);
@@ -47,6 +57,8 @@ end
 [image_h, image_v] = filter_op(img, filterOption);
 
 [line_cut_xcolumns_h, line_cut_yrows_h,line_cut_xcolumns_v,line_cut_yrows_v] = line_cut(image_h, image_v,line_number,vchunk,hchunk,max_displacement);
+
+[~,~,d]= size(img);
 
 %Show results
 figure(1);
@@ -128,3 +140,5 @@ for h=1:line_number
 end 
 
 fprintf('Algorithm find the line cut after %.2f s \n',t1);
+
+%end
