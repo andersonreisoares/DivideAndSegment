@@ -43,7 +43,7 @@ if tag == 1
 else
     [img,~] = imread(img);
 end
-img = imadjust(img);
+
 [image_h, image_v] = filter_op(img, filterOption);
 
 [line_cut_xcolumns_h, line_cut_yrows_h,line_cut_xcolumns_v,line_cut_yrows_v] = line_cut(image_h, image_v,line_number,vchunk,hchunk,max_displacement);
