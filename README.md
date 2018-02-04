@@ -45,7 +45,7 @@ For geotiff files, it is necessary to provide the EPSG of image.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 
 ## Related papers
 Divide And Segment - An Alternative For Parallel Segmentation. TS Korting, EF Castejon, LMG Fonseca - Lecture Notes in Computer Science 8192:504-515 · May 2013 [PDF](https://www.researchgate.net/publication/265794792_The_Divide_and_Segment_Method_for_Parallel_Image_Segmentation)
