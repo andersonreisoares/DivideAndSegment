@@ -18,27 +18,16 @@ function [image_h, image_v] = filter_op(input_image, filterOption)
                      1 1 1;];
         
                  
-        for w=1:d
-            Gmag = imfilter(input_image(:,:,w),filter_hp);
-            edges(:,:,w) = (Gmag-min(Gmag(:)))*1/(max(Gmag(:))-min(Gmag(:)));
-            clearvars Gmag
-        end
-        all = squeeze(sum(edges,3));
+        image_h=imfilter(input_image,filter_hp);
+        all = squeeze(sum(image_h,3));
         image_h = (all-min(all(:)))*1/(max(all(:))-min(all(:)));
-        
-        %image_h = imfilter(input_image,filter_hp);
-        
+                
         input_image = permute(input_image,[2 1 3]);     
-                 
-        for w=1:d
-            Gmag = imfilter(input_image(:,:,w),filter_hp);
-            edges_v(:,:,w) = (Gmag-min(Gmag(:)))*1/(max(Gmag(:))-min(Gmag(:)));
-            clearvars Gmag
-        end
+                
+        image_v = imfilter(input_image,filter_hp);
         allv = squeeze(sum(edges_v,3));
         image_v = (allv-min(allv(:)))*1/(max(allv(:))-min(allv(:)));
-        
-        %image_v = imfilter(input_image,filter_hp);
+
       
     end
     
