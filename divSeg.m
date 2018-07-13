@@ -16,8 +16,8 @@
 % % hchunk           - horizontal chuck size
 % % max_displacement - maximum displacement to the crop line
 % % epsg             - EPSG of image
-% % weight           - You can add a weight to an specific band to highlith
-% some important feature.
+% % weight           - You can add a weight to a specific band to highlight some important feature.
+
 
 function divSeg(img,line_number,filterOption,vchunk,hchunk,max_displacement,epsg,weight)
 
