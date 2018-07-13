@@ -29,9 +29,11 @@ max_displacement - maximum displacement to the crop line
 
 epsg             - EPSG of image
 
+weight           - You can add a weight to a specific band to highlight some important feature.
+
 ## Example
 ```
-divSeg('input.tif',8,2,20,10,100,32723)
+divSeg('input.tif',8,2,20,10,100,32723,[1 1 1 1 1 2 2 2])
 ```
 
 
