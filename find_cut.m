@@ -23,21 +23,21 @@ function [division_rows, division_columns] = find_cut(input_image, starting_row,
         if (r == 1)
           pixels = [0,
                     0,
-                    input_image(r, c + 1, :), 
-                    input_image(r + 1, c + 1, :),
-                    input_image(r + 1, c, :)];
+                    squeeze(input_image(r, c + 1, :)), 
+                    squeeze(input_image(r + 1, c + 1, :)),
+                    squeeze(input_image(r + 1, c, :))];
         elseif (r == H)
-          pixels = [input_image(r - 1, c, :),
-                    input_image(r - 1, c + 1, :),
-                    input_image(r, c + 1, :), 
+          pixels = [squeeze(input_image(r - 1, c, :)),
+                    squeeze(input_image(r - 1, c + 1, :)),
+                    squeeze(input_image(r, c + 1, :)), 
                     0
                     0];
         else
-          pixels = [input_image(r - 1, c, :),
-                    input_image(r - 1, c + 1, :),
-                    input_image(r, c + 1, :), 
-                    input_image(r + 1, c + 1, :),
-                    input_image(r + 1, c, :)];
+          pixels = [squeeze(input_image(r - 1, c, :)),
+                    squeeze(input_image(r - 1, c + 1, :)),
+                    squeeze(input_image(r, c + 1, :)), 
+                    squeeze(input_image(r + 1, c + 1, :)),
+                    squeeze(input_image(r + 1, c, :))];
         end;
         
         [a, max_position] = max(pixels);
@@ -163,6 +163,6 @@ function [division_rows, division_columns] = find_cut(input_image, starting_row,
   for i = 1:length(linecut)
     division_rows = [division_rows, myrows(linecut(i))];
     division_columns = [division_columns, mycolumns(linecut(i))];
-  end;
+  end
 
 end
